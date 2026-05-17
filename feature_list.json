@@ -92,6 +92,38 @@
         "Tests PestPHP cubren creacion, rotacion y revocacion"
       ],
       "status": "pending"
+    },
+    {
+      "id": 7,
+      "name": "email_service_resend",
+      "title": "Email service integration with Resend",
+      "description": "Integrate Resend for transactional email across DEVOOPS. Create EmailService model, provider abstraction, API endpoints, and Cloudflare DNS/Routing auto-provisioning. Based on Plan/archive/plan_emailing_resend_multidominio.md.",
+      "repo": "devoops-core",
+      "acceptance": [
+        "Existe modelo EmailService con migracion en devoops-core",
+        "API CRUD: crear/verificar/eliminar servicio de email por proyecto",
+        "Integracion con Resend API: crear dominio, generar API key scoped",
+        "Integracion opcional con Cloudflare API para DNS automatico",
+        "Test email end-to-end",
+        "Tests PestPHP cubren CRUD y verificacion"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": 8,
+      "name": "fork_hygiene",
+      "title": "Fork maintenance infrastructure for devoops-core",
+      "description": "Implement the Phase 0 fork hygiene checklist from the original fork plan: rebase cadence, changelog, feature flags, CI, own Docker image, CONTRIBUTING.md. Ensures devoops-core remains maintainable relative to upstream Coolify.",
+      "repo": "devoops-core",
+      "acceptance": [
+        "WEBSHOOKS_CHANGES.md (o DEVOOPS_CHANGES.md) en raiz de devoops-core con cada cambio del fork",
+        "Feature flags via config('devoops.feature.x') en cada cambio del fork",
+        "Migraciones DB en namespace devoops_*",
+        "CI pipeline: tests upstream + tests propios",
+        "Docker image propia ghcr.io/fmonfasani/devoops-core:vX.Y.Z",
+        "CONTRIBUTING.md con regla 'upstream-first si el cambio es generico'"
+      ],
+      "status": "pending"
     }
   ]
 }
