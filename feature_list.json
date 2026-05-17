@@ -1,0 +1,97 @@
+{
+  "project": "devoops-agents",
+  "description": "Harness runtime + AI agent orchestration for the DEVOOPS multi-repo platform.",
+  "rules": {
+    "one_feature_at_a_time": true,
+    "require_tests_to_close": true,
+    "valid_status": ["pending", "in_progress", "done", "blocked"]
+  },
+  "features": [
+    {
+      "id": 1,
+      "name": "agent_registry",
+      "title": "Agent Registry model and API",
+      "description": "Create the Agent, Tool, and ExecutionContext models in devoops-agents with CRUD API. Agents have name, description, tools list, and status. Tools have name, description, and schema. ExecutionContext captures agent runs with input/output/status.",
+      "repo": "devoops-agents",
+      "acceptance": [
+        "Existe schema/model para Agent, Tool, ExecutionContext",
+        "API endpoints: CRUD agents, list/create executions",
+        "Tests cubren creacion de agente con tools asociadas",
+        "init.sh verde al finalizar"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": 2,
+      "name": "harness_leader_protocol",
+      "title": "Leader orchestration protocol",
+      "description": "Implement the leader/implementer/reviewer orchestration protocol as a lightweight runtime. The leader receives a task, decomposes it, dispatches to implementer sub-agents, and invokes reviewer before closing.",
+      "repo": "devoops-agents",
+      "acceptance": [
+        "Existe un modulo de orquestacion que emula el flujo leader/implementer/reviewer",
+        "El flujo completo se puede ejecutar via CLI o API",
+        "Estado persiste en disco (progress/)",
+        "Tests cubren ciclo completo: plan -> implement -> review -> close"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": 3,
+      "name": "core_automation_integration",
+      "title": "Connect automation-engine triggers to devoops-core hooks",
+      "description": "Wire the existing AutomationHook model in devoops-core to the automation-engine webhook receiver. When a deployment event happens in core, it triggers a workflow in automation-engine.",
+      "repo": "devoops-core, devoops-automation-engine",
+      "acceptance": [
+        "devoops-core dispatches webhook to automation-engine on deployment events",
+        "automation-engine receives webhook and creates an execution",
+        "Execution log is created and status is trackable",
+        "Tests: event -> webhook -> execution flow with mock server"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": 4,
+      "name": "env_management",
+      "title": "Environment management in devoops-core",
+      "description": "Create Environment model (name, project_id, organization_id, variables) with CRUD API and RBAC scoping. Each environment belongs to an organization and project.",
+      "repo": "devoops-core",
+      "acceptance": [
+        "Existe modelo Environment con migracion",
+        "API CRUD para environments scoped a organizacion",
+        "RBAC: solo owner/admin/developer pueden crear/editar entornos",
+        "Variables de entorno almacenadas cifradas",
+        "Tests PestPHP cubren CRUD y RBAC"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": 5,
+      "name": "cli_env_commands",
+      "title": "Environment commands in devoops-cli",
+      "description": "Add `devoops env create`, `env list`, `env delete`, `env var set`, `env var get` commands to the CLI, hitting the core API.",
+      "repo": "devoops-cli",
+      "acceptance": [
+        "`devoops env create <name> --org <org>` funciona",
+        "`devoops env list` lista entornos de la organizacion activa",
+        "`devoops env var set <key>=<value>` actualiza variable",
+        "`devoops env var get <key>` muestra valor",
+        "Tests Go cubren comandos (con mock server)"
+      ],
+      "status": "pending"
+    },
+    {
+      "id": 6,
+      "name": "api_key_management",
+      "title": "API key management in devoops-core",
+      "description": "Create ApiKey model with hashed tokens, scoped to organizations, with expiration and last_used tracking. API endpoints for CRUD.",
+      "repo": "devoops-core",
+      "acceptance": [
+        "Existe modelo ApiKey con migracion (token hasheado, expiracion, scoping)",
+        "API CRUD solo para owner/admin",
+        "Autenticacion via Bearer token usando ApiKey",
+        "Tests PestPHP cubren creacion, rotacion y revocacion"
+      ],
+      "status": "pending"
+    }
+  ]
+}
