@@ -83,7 +83,42 @@ PY
 if [ $? -ne 0 ]; then EXIT_CODE=1; fi
 
 echo ""
-echo "--- 4. Resumen ---"
+echo "--- 4. Verificando Node.js ---"
+
+NODE=""
+if command -v node >/dev/null 2>&1; then
+  NODE_VERSION=$(node --version 2>&1 | tr -d '\r')
+  case "$NODE_VERSION" in
+    "v"*) NODE="node"; ok "node -> $NODE_VERSION" ;;
+    *) fail "node no responde" ; EXIT_CODE=1 ;;
+  esac
+else
+  fail "node no esta instalado"
+  EXIT_CODE=1
+fi
+
+if [ -n "$NODE" ] && [ -d "node_modules" ]; then
+  ok "node_modules existe"
+else
+  warn "node_modules no existe — ejecuta 'npm install' primero"
+fi
+
+echo ""
+echo "--- 5. Ejecutando tests ---"
+
+if [ -d "node_modules" ] && [ -f "package.json" ]; then
+  if npm test 2>&1; then
+    ok "Todos los tests pasan"
+  else
+    fail "Hay tests rotos"
+    EXIT_CODE=1
+  fi
+else
+  warn "Tests no disponibles (falta npm install o package.json)"
+fi
+
+echo ""
+echo "--- 6. Resumen ---"
 
 if [ $EXIT_CODE -eq 0 ]; then
   ok "Entorno listo. Puedes empezar a trabajar."

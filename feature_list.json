@@ -19,7 +19,7 @@
         "Tests cubren creacion de agente con tools asociadas",
         "init.sh verde al finalizar"
       ],
-      "status": "pending"
+      "status": "done"
     },
     {
       "id": 2,
