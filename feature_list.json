@@ -94,7 +94,7 @@
       "status": "pending"
       "status": "pending"
     },
-   {
+     {
       "id": 7,
       "name": "project_level_rbac",
       "title": "Project-Level RBAC in devoops-core",
